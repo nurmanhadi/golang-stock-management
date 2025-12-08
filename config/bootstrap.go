@@ -31,9 +31,11 @@ func Initialize(deps *Bootstrap) {
 
 	// service
 	productServ := service.NewProduct(deps.Validator, deps.Logger, deps.DB, productRepo, movementRepo)
+	stockServ := service.NewStock(deps.DB, deps.Validator, deps.Logger, productRepo, movementRepo)
 
 	// handler
 	productHand := handler.NewProduct(productServ)
+	stockHand := handler.NewStock(stockServ)
 
 	// middleware
 	deps.Router.Use(middleware.ErrorHandler)
@@ -42,6 +44,7 @@ func Initialize(deps *Bootstrap) {
 	r := routes.Router{
 		Router:         deps.Router,
 		ProductHandler: productHand,
+		StockHandler:   stockHand,
 	}
 	r.New()
 

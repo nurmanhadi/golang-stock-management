@@ -1,0 +1,7 @@
+PUT http://localhost:3000/stock/in HTTP/1.1
+Content-Type: application/json
+
+{
+    "product_id": 1,
+    "qty": 200
+}
