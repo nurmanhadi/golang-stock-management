@@ -34,6 +34,12 @@ func (h *productHand) Create(w http.ResponseWriter, r *http.Request) {
 func (h *productHand) GetAll(w http.ResponseWriter, r *http.Request) {
 	page := r.URL.Query().Get("page")
 	size := r.URL.Query().Get("size")
+	if page == "" {
+		page = "1"
+	}
+	if size == "" {
+		size = "10"
+	}
 	result, err := h.productService.GetAll(page, size)
 	if err != nil {
 		panic(err)

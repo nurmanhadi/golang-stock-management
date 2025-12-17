@@ -20,5 +20,6 @@ func (r *Router) New() {
 	r.Router.Route("/stock", func(stock chi.Router) {
 		stock.Put("/in", r.StockHandler.In)
 		stock.Put("/out", r.StockHandler.Out)
+		stock.Get("/movements", r.StockHandler.Movement)
 	})
 }
