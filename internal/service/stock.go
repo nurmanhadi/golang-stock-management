@@ -90,6 +90,10 @@ func (s *stockServ) Out(request *dto.StockRequest) error {
 		s.logger.Error().Msg("failed find by id product to database")
 		return err
 	}
+	if product.Stock < 1 {
+		s.logger.Warn().Msgf("stock %d empty", product.Stock)
+		return response.Except(400, "stock empty")
+	}
 	stock := product.Stock - request.Qty
 	tx := s.db.Begin()
 	if err := s.productRepository.UpdateStock(tx, product.ID, stock); err != nil {
